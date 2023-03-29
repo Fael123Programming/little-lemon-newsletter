@@ -7,11 +7,12 @@ import {
 import Colors from '../utils/Colors';
 
 
-function CustomButton({onPress, text}) {
+function CustomButton({onPress, text, disabled=false}) {
     return (
         <Pressable
             onPress={onPress}
             style={buttonStyle.button}
+            disabled={disabled}
         >
             <Text style={buttonStyle.text}>{text}</Text>
         </Pressable>

@@ -54,8 +54,8 @@ const welcomeStyle = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     image: {
-        width: 130,
-        height: 170,
+        width: 130, // 130 - 32%
+        height: 170 // 170 - 41%
     },
     imageTitle: {
         fontSize: 26,
