@@ -2,48 +2,71 @@ import React, { useState } from 'react';
 import {
     View,
     ScrollView,
+    KeyboardAvoidingView,
+    Platform,
     StyleSheet,
     Image,
     Text,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Colors from '../utils/Colors';
+import validateEmail  from '../utils/ValidateEmail';
 
 function SubscribeScreen() {
     const [email, setEmail] = useState('');
+    const [disabled, setDisabled] = useState(true);
     return (
-        <View style={subscribeStyle.container}>
-            <View style={subscribeStyle.imageContainer}>
-                <Image
-                    source={require('../img/logo.png')}
-                    resizeMode={'stretch'}
-                    style={subscribeStyle.image}
-                />
-            </View>
-            <View style={subscribeStyle.effectPhraseContainer}>
-                <Text style={subscribeStyle.effectPhrase}>
-                    Subscribe to our newsletter for our{'\n'}latest delicious recipes!
-                </Text>
-            </View>
-            <View 
-                style={subscribeStyle.inputContainer}
-            >  
-                <TextInput
-                    style={subscribeStyle.input}
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder={'Type your email'}
-                    keyboardType={'email-address'}
-                />
-            </View>
-            <View style={subscribeStyle.buttonContainer}>
-                <CustomButton
-                    text={'Subscribe'}
-                    deactivate
-                />
-            </View>
-        </View>
+        <KeyboardAvoidingView 
+            style={subscribeStyle.container}
+            behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
+        >
+            <ScrollView
+                keyboardDismissMode={'on-drag'}
+                contentContainerStyle={subscribeStyle.innerContainer}
+            >
+                <View style={subscribeStyle.imageContainer}>
+                    <Image
+                        source={require('../img/logo.png')}
+                        resizeMode={'stretch'}
+                        style={subscribeStyle.image}
+                    />
+                </View>
+                <View style={subscribeStyle.effectPhraseContainer}>
+                    <Text style={subscribeStyle.effectPhrase}>
+                        Subscribe to our newsletter for our{'\n'}latest delicious recipes!
+                    </Text>
+                </View>
+                <View 
+                    style={subscribeStyle.inputContainer}
+                >  
+                    <TextInput
+                        style={subscribeStyle.input}
+                        value={email}
+                        onChangeText={(newEmail) => {
+                                setEmail(newEmail);
+                                setDisabled(!validateEmail(newEmail));
+                            }
+                        }
+                        placeholder={'Type your email'}
+                        keyboardType={'email-address'}
+                    />
+                </View>
+                <View style={subscribeStyle.buttonContainer}>
+                    <CustomButton
+                        text={'Subscribe'}
+                        disabled={disabled}
+                        onPress={() => {
+                                Alert.alert('Thanks for subscribing, stay tuned!');
+                                setEmail('');
+                                setDisabled(true);
+                            }
+                        }
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -54,8 +77,13 @@ const subscribeStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    imageContainer: {
+    innerContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    imageContainer: {
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -69,7 +97,7 @@ const subscribeStyle = StyleSheet.create({
         textAlign: 'center'
     },
     effectPhraseContainer: {
-        flex:1,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -82,8 +110,8 @@ const subscribeStyle = StyleSheet.create({
         fontSize: 16,
         borderColor: Colors.black,
         borderRadius: 8,
-        backgroundColor: Colors.white,
-        color: Colors.black,
+        backgroundColor: Colors.whiteLight,
+        color: Colors.black
     },
     inputContainer: {
         flex: 1,
@@ -91,9 +119,9 @@ const subscribeStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonContainer: {
-        flex: 1,
+        flex: 4,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'flex-start'
     }
 });
 

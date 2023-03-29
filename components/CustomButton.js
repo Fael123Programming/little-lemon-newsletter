@@ -11,7 +11,7 @@ function CustomButton({onPress, text, disabled=false}) {
     return (
         <Pressable
             onPress={onPress}
-            style={buttonStyle.button}
+            style={[buttonStyle.button, disabled ? buttonStyle.greyColor : buttonStyle.greenColor]}
             disabled={disabled}
         >
             <Text style={buttonStyle.text}>{text}</Text>
@@ -21,13 +21,18 @@ function CustomButton({onPress, text, disabled=false}) {
 
 const buttonStyle = StyleSheet.create({
     button: {
-        backgroundColor: Colors.green,
         borderWidth: 1,
         borderColors: Colors.black,
         width: 340,
         height: 40,
         justifyContent: 'center',
         borderRadius: 10
+    },
+    greenColor: {
+        backgroundColor: Colors.green,
+    },
+    greyColor: {
+        backgroundColor: Colors.lightGrey
     },
     text: {
         fontSize: 21,
