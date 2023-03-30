@@ -3,10 +3,12 @@ import {
     View,
     StyleSheet,
     Image,
-    Text
+    Text,
+    Dimensions
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Colors from '../utils/Colors';
+import Percentages from '../utils/Percentages';
 
 function WelcomeScreen({navigation}) {
     return (
@@ -54,8 +56,8 @@ const welcomeStyle = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     image: {
-        width: 130, // 130 - 32%
-        height: 170 // 170 - 41%
+        width: Dimensions.get('window').width * Percentages.welcomeScreenImageWidth,
+        height: Dimensions.get('window').height * Percentages.welcomeScreenImageHeight
     },
     imageTitle: {
         fontSize: 26,

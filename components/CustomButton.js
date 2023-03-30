@@ -2,10 +2,11 @@ import React from 'react';
 import { 
     Text, 
     Pressable, 
-    StyleSheet
+    StyleSheet,
+    Dimensions
 } from 'react-native';
 import Colors from '../utils/Colors';
-
+import Percentages from '../utils/Percentages';
 
 function CustomButton({onPress, text, disabled=false}) {
     return (
@@ -23,8 +24,8 @@ const buttonStyle = StyleSheet.create({
     button: {
         borderWidth: 1,
         borderColors: Colors.black,
-        width: 340,
-        height: 40,
+        width: Dimensions.get('window').width * Percentages.customButtomWidth,
+        height: Dimensions.get('window').height * Percentages.customButtonHeight,
         justifyContent: 'center',
         borderRadius: 10
     },

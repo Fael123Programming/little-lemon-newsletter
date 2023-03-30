@@ -8,11 +8,13 @@ import {
     Image,
     Text,
     TextInput,
-    Alert
+    Alert,
+    Dimensions
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Colors from '../utils/Colors';
 import validateEmail  from '../utils/ValidateEmail';
+import Percentages from '../utils/Percentages';
 
 function SubscribeScreen() {
     const [email, setEmail] = useState('');
@@ -88,8 +90,8 @@ const subscribeStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     image: {
-        width: 100,
-        height: 120,
+        width: Dimensions.get('window').width * Percentages.subscribeScreenImageWidth,
+        height: Dimensions.get('window').height * Percentages.subscribeScreenImageHeight
     },
     effectPhrase: {
         fontFamily: 'Roboto',
@@ -102,9 +104,8 @@ const subscribeStyle = StyleSheet.create({
         justifyContent: 'center'
     },
     input: {
-        width: 340,
-        height: 40,
-        margin: 12,
+        width: Dimensions.get('window').width * Percentages.customButtomWidth,
+        height: Dimensions.get('window').height * Percentages.customButtonHeight,
         borderWidth: 1,
         padding: 10,
         fontSize: 16,
